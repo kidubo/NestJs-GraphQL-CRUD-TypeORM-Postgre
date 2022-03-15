@@ -9,7 +9,7 @@ import { EmployeeModule } from './employee/employee.module';
 import { Employee } from './employee/entities/employee.entities';
 import { Project } from './project/entities/project.entity';
 import { ProjectModule } from './project/project.module';
-import config from './env/config';
+import config from './keys/config';
 
 console.log(process.env.DB_PASSWORD);
 
