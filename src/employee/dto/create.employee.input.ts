@@ -12,4 +12,8 @@ export class EmployeeCreateDTO {
   city: string;
   @Field()
   projectId: string;
+  @Field()
+  username: string;
+  @Field()
+  password: string;
 }

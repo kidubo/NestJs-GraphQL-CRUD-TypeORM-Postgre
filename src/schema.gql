@@ -15,8 +15,13 @@ type Employee {
   lastname: String!
   designation: String!
   city: String
+  username: String!
   project: Project!
   projectId: String!
+}
+
+type AccessToken {
+  accessToken: String!
 }
 
 type Query {
@@ -24,10 +29,16 @@ type Query {
   getEmployeeById(id: String!): Employee!
   getAllprojects: [Project!]!
   project(id: String!): Project!
+  login(loginRequest: LoginRequest!): AccessToken!
+}
+
+input LoginRequest {
+  username: String!
+  password: String!
 }
 
 type Mutation {
-  createEmployee(employee: EmployeeCreateDTO!): Employee!
+  signup(employee: EmployeeCreateDTO!): Employee!
   createProject(project: CreateProjectInput!): Project!
   updateProject(updateProjectInput: UpdateProjectInput!): Project!
   removeProject(id: String!): Project!
@@ -39,6 +50,8 @@ input EmployeeCreateDTO {
   designation: String!
   city: String
   projectId: String!
+  username: String!
+  password: String!
 }
 
 input CreateProjectInput {

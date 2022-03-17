@@ -10,8 +10,7 @@ import { Employee } from './employee/entities/employee.entities';
 import { Project } from './project/entities/project.entity';
 import { ProjectModule } from './project/project.module';
 import config from './keys/config';
-
-console.log(process.env.DB_PASSWORD);
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -27,12 +26,18 @@ console.log(process.env.DB_PASSWORD);
       username: config.username,
       password: config.password,
       database: config.database,
-      synchronize: true,
+      synchronize: false,
       // logging: false,
       entities: [Employee, Project],
-      // migrations: ['src/migration/**/*.ts'],
+      migrations: ['src/migration/**/*.ts'],
       // subscribers: ['src/subscriber/**/*.ts'],
+      cli: {
+        // entitiesDir: 'src/entity',
+        migrationsDir: 'src/migrations',
+        // subscribersDir: 'src/subscriber',
+      },
     }),
+    AuthModule,
     ProjectModule,
   ],
   controllers: [AppController],

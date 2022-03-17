@@ -1,8 +1,9 @@
 import { Field, ObjectType } from '@nestjs/graphql';
+import { Hash } from 'src/helpers/hash-helper';
 import {
+  BeforeInsert,
   Column,
   Entity,
-  ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -31,6 +32,13 @@ export class Employee {
   @Column({ nullable: true })
   city: string;
 
+  @Field()
+  @Column()
+  username: string;
+
+  @Column()
+  password: string;
+
   @ManyToOne(() => Project, (project) => project.employee)
   @Field(() => Project)
   project: Project;
@@ -38,4 +46,9 @@ export class Employee {
   @Field()
   @Column()
   projectId: string;
+
+  @BeforeInsert()
+  async beforeInsert() {
+    this.password = await Hash.make(this.password);
+  }
 }
